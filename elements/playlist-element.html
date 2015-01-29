@@ -1,0 +1,15 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="playlist-element" attributes="src">
+  <template>
+    <span>I'm <b>playlist-element</b>. My JSON file is {{src}}.</span>
+  </template>
+  <script>
+    Polymer({
+      src: "default.json",
+      ready: function() {
+        
+      }
+    });
+  </script>
+</polymer-element>

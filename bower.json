@@ -1,0 +1,21 @@
+{
+  "name": "mp3-playlist",
+  "version": "0.0.1",
+  "description": "Basic web component that reads a JSON file and build a MP3 Playlist",
+  "keywords": [
+    "test"
+  ],
+  "authors": [
+    "Diego Rocha"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.4"
+  }
+}

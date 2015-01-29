@@ -1,0 +1,80 @@
+body {
+	padding: 1em 5em;
+}
+
+.wrapper-playlist {
+	padding: 3em 0;
+}
+
+.player-buttons .progress {
+	width: 500px;
+	display: inline-block;
+	margin: 0 1em;
+}
+
+.playlist-container .playing-label span {
+	width: 490px;
+	display: inline-block;
+}
+
+.playlist-container .playing-label strong {
+	color: #16A085;
+}
+
+.playlist-container .todo {
+	width: 584px;
+}
+
+.playlist-container .todo ul {
+	border-radius: 6px;
+}
+
+.playlist-container .todo li {
+	margin: 0;
+	border-top: 2px solid #FFF;
+}
+
+.playlist-container .todo li:first-child {
+	border-top: none;
+}
+
+.playlist-container .todo li,
+.playlist-container .todo .todo-done {
+	background: transparent;
+}
+
+.playlist-container .todo li,
+.playlist-container .todo li:last-child {
+	padding: 8px 42px 8px 25px;
+}
+
+.playlist-container .todo-icon {
+	display: inline-block;
+	font-family: 'Flat-UI-Icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #FFF;
+	padding: 0 22px 0 0;
+}
+
+.playlist-container .todo-icon:before {
+	content: "\e03c";
+}
+
+.playlist-container .todo-done .todo-icon:before {
+	content: "\e000";
+}
+
+.playlist-container .todo-done .todo-icon {
+	color: #1ABC9C;
+}
+
+.todo li .todo-name {
+	line-height: 1.7;
+	margin: 0;
+}

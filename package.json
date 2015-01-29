@@ -1,0 +1,23 @@
+{
+  "name": "mp3-playlist",
+  "version": "0.0.1",
+  "description": "Basic web component that reads a JSON file and build a MP3 Playlist.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qix1986/MP3-Playlist.git"
+  },
+  "keywords": [
+    "mp3",
+    "playlist"
+  ],
+  "author": "Diego Rocha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qix1986/MP3-Playlist/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.2.1",
+    "gulp": "^3.8.6",
+    "gulp-util": "^2.2.20"
+  }
+}
