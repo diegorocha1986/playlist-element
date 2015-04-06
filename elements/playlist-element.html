@@ -1,15 +1,65 @@
+<!-- Polymer Element -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
+
+<!-- Core AJAX -->
+<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
+
+<!-- MP3-Playlist Elements -->
+<link rel="import" href="/elements/playlist-pager-element.html">
 
 <polymer-element name="playlist-element" attributes="src">
   <template>
-    <span>I'm <b>playlist-element</b>. My JSON file is {{src}}.</span>
+    <style>
+      .wrapper-playlist {
+        display: block;
+      }
+    </style>
+    <core-ajax id="ajax" url="{{src}}" handleAs="json" on-core-response="{{handleResponse}}"></core-ajax>
+    <div class="wrapper-playlist">
+      <div class="player-buttons clearfix">
+        <a href="javascript:;" class="js-play-pause">
+          <span class="fui-play"></span>
+        </a>
+        <div class="progress">
+          <div class="progress-bar js-progress-bar"></div>
+        </div>
+        <a href="javascript:;" class="js-mute">
+          <span class="fui-volume"></span>
+        </a>
+      </div>
+      <div class="playlist-container">
+        <playlist-pager-element id="pager"></playlist-pager-element>
+        <div class="todo">
+          <ul class="js-list">
+            
+          </ul>
+        </div>
+      </div>
+    </div>
   </template>
   <script>
-    Polymer({
-      src: "default.json",
-      ready: function() {
-        
-      }
-    });
+    (function(win, doc, undefined){
+      Polymer({
+        src: "default.json",
+        currentTrack: 0,
+        trackList: [],
+        ready: function() {
+          var pager = this.$.pager;
+
+          this.$.ajax.go();
+          
+          pager.addEventListener('pager-event', function(event){
+            console.log(event.detail.type);
+          });
+        },
+        handleResponse: function(data){
+          this.trackList = data.detail.response;
+          this.createPlaylist();
+        },
+        createPlaylist: function(){
+          console.log(this.trackList)
+        }
+      })
+    })(window, document);
   </script>
 </polymer-element>

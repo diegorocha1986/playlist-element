@@ -1,0 +1,69 @@
+<polymer-element name="playlist-pager-element">
+	<template>
+		<style>
+			a {
+				color: #16a085;
+				text-decoration: none;
+				-webkit-transition: 0.25s;
+				transition: 0.25s;
+			}
+			a:hover,
+			a:focus {
+				color: #1abc9c;
+				text-decoration: none;
+			}
+			a:focus {
+				outline: none;
+			}
+			.pager {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.fui-arrow-left,
+			.fui-arrow-right {
+				display: inline-block;
+				font-family: 'Flat-UI-Icons';
+				speak: none;
+				font-style: normal;
+				font-weight: normal;
+				font-variant: normal;
+				text-transform: none;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			.fui-arrow-left:before {
+				content: "\e02d";
+			}
+			.fui-arrow-right:before {
+				content: "\e02c";
+			}
+		</style>
+		<ul class="pager">
+          <li class="previous js-prev">
+            <a href="javascript:;" on-click="{{triggerPrevious}}">
+              <span class="fui-arrow-left"></span>
+            </a>
+          </li>
+          <li class="playing-label">
+            <span>Current Playing: <strong>{{currentTrack}}</strong></span>
+          </li>
+          <li class="next js-next">
+            <a href="javascript:;" on-click="{{triggerNext}}">
+              <span class="fui-arrow-right"></span>
+            </a>
+          </li>
+        </ul>
+	</template>
+	<script>
+    Polymer({
+      currentTrack: null,
+      triggerNext: function(){
+      	this.fire('pager-event', {type: 'next'});
+      },
+      triggerPrevious: function(){
+      	this.fire('pager-event', {type: 'previous'});
+      }
+    });
+  </script>
+</polymer-element>
