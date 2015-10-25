@@ -1,0 +1,107 @@
+<polymer-element name="playlist-track-element" attributes="index, song">
+	<template>
+		<style>
+      li {
+        background: #34495e;
+        background-size: 20px 20px;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1.214;
+        padding: 18px 42px 21px 25px;
+        position: relative;
+        -webkit-transition: 0.25s;
+        transition: 0.25s;
+        margin: 0;
+        border-top: 2px solid #FFF;
+      }
+      li:first-child {
+        margin-top: 0;
+        border-top: none;
+        border-radius: 6px 6px 0 0;
+      }
+      li:last-child {
+        border-radius: 0 0 6px 6px;
+        padding-bottom: 21px;
+      }
+      li,
+      li:last-child {
+        padding: 8px 42px 8px 25px;
+      }
+      li,
+      li.todo-done {
+        background: transparent;
+      }
+      li.todo-done {
+        color: #1abc9c;
+      }
+      li.todo-done .todo-name {
+        color: #1abc9c;
+      }
+      .todo-icon {
+        float: left;
+        font-size: 24px;
+        display: inline-block;
+        font-family: 'Flat-UI-Icons';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #FFF;
+        padding: 0 22px 0 0;
+      }
+      .todo-icon:before {
+        content: "\e03c";
+      }
+
+      .todo-done .todo-icon:before {
+        content: "\e000";
+      }
+
+      .todo-done .todo-icon {
+        color: #1ABC9C;
+      }
+
+      li .todo-name {
+        line-height: 1.7;
+        margin: 0;
+      }
+      .todo-content {
+        padding-top: 1px;
+        overflow: hidden;
+      }
+      .todo-name {
+        color: #ffffff;
+        font-size: 17px;
+        margin: 1px 0 3px;
+      }
+      @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 2) {
+        li {
+          background-image: url(../images/todo/todo-2x.png);
+        }
+        li.todo-done {
+          background-image: url(../images/todo/done-2x.png);
+        }
+      }
+		</style>
+		<li class="clearfix" on-click="{{triggerChange}}">
+      <div class="todo-icon"></div>
+      <div class="todo-content">
+        <h4 class="todo-name">{{song}}</h4>
+      </div>
+    </li>
+	</template>
+	<script>
+  (function(win, doc, undefined){
+    Polymer({
+      song: '',
+      index: 0,
+      triggerChange: function(){
+        this.fire('track-event', {index: this.index});
+      }
+    });
+  })(window, document);
+  </script>
+</polymer-element>

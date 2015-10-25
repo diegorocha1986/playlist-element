@@ -1,0 +1,94 @@
+<polymer-element name="playlist-control-element" attributes="progress">
+	<template>
+		<style>
+      a {
+        color: #16a085;
+        text-decoration: none;
+        -webkit-transition: 0.25s;
+        transition: 0.25s;
+      }
+      a:hover,
+      a:focus {
+        color: #1abc9c;
+        text-decoration: none;
+      }
+      a:focus {
+        outline: none;
+      }
+      
+			.player-buttons .progress {
+        width: 500px;
+        display: inline-block;
+        margin: 0 1em;
+      }
+
+      .fui-volume,
+      .fui-pause,
+      .fui-play {
+        display: inline-block;
+        font-family: 'Flat-UI-Icons';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .fui-volume:before {
+        content: "\e010";
+      }
+
+      .fui-pause:before {
+        content: "\e03b";
+      }
+
+      .fui-play:before {
+        content: "\e03c";
+      }
+
+      .progress {
+        background: #ebedef;
+        border-radius: 32px;
+        height: 12px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        margin-bottom: 20px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        float: left;
+        width: 0;
+        background: #1abc9c;
+        line-height: 12px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        height: 100%;
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+        -webkit-transition: width .6s ease;
+                transition: width .6s ease;
+      }
+		</style>
+		<div class="player-buttons clearfix">
+      <a href="javascript:;" class="js-play-pause">
+        <span class="fui-play"></span>
+      </a>
+      <div class="progress">
+        <div class="progress-bar js-progress-bar" style="width:{{progress}}%;"></div>
+      </div>
+      <a href="javascript:;" class="js-mute">
+        <span class="fui-volume"></span>
+      </a>
+    </div>
+	</template>
+	<script>
+    (function(win, doc, undefined){
+      Polymer({
+        progress: 0
+      });
+    })(window, document);
+  </script>
+</polymer-element>

@@ -5,7 +5,9 @@
 <link rel="import" href="/bower_components/core-ajax/core-ajax.html">
 
 <!-- MP3-Playlist Elements -->
+<link rel="import" href="/elements/playlist-control-element.html">
 <link rel="import" href="/elements/playlist-pager-element.html">
+<link rel="import" href="/elements/playlist-track-element.html">
 
 <polymer-element name="playlist-element" attributes="src">
   <template>
@@ -13,24 +15,28 @@
       .wrapper-playlist {
         display: block;
       }
+      .todo {
+        width: 584px;
+        color: #798795;
+        margin-bottom: 20px;
+        border-radius: 6px;
+      }
+      .todo ul {
+        background-color: #2c3e50;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        border-radius: 6px;
+      }
     </style>
     <core-ajax id="ajax" url="{{src}}" handleAs="json" on-core-response="{{handleResponse}}"></core-ajax>
+    <audio src="" id="player"></audio>
     <div class="wrapper-playlist">
-      <div class="player-buttons clearfix">
-        <a href="javascript:;" class="js-play-pause">
-          <span class="fui-play"></span>
-        </a>
-        <div class="progress">
-          <div class="progress-bar js-progress-bar"></div>
-        </div>
-        <a href="javascript:;" class="js-mute">
-          <span class="fui-volume"></span>
-        </a>
-      </div>
+      <playlist-control-element id="control"></playlist-control-element>
       <div class="playlist-container">
         <playlist-pager-element id="pager"></playlist-pager-element>
         <div class="todo">
-          <ul class="js-list">
+          <ul class="js-list" id="tracklist">
             
           </ul>
         </div>
@@ -43,21 +49,84 @@
         src: "default.json",
         currentTrack: 0,
         trackList: [],
+        isPlaying: false,
         ready: function() {
-          var pager = this.$.pager;
+          var that   = this,
+              pager  = this.$.pager,
+              player = this.$.player;
 
           this.$.ajax.go();
           
           pager.addEventListener('pager-event', function(event){
-            console.log(event.detail.type);
+            that.handlePager(event.detail.type);
           });
+
+          player.addEventListener('play', this.playEvent.bind(this));
+          player.addEventListener('pause', this.pauseEvent.bind(this));
+          player.addEventListener('ended', this.handlePager.bind(this, 'next'));
+          player.addEventListener('timeupdate', this.updateProgress.bind(this));
+        },
+        playEvent: function(e){
+          this.isPlaying = true;
+        },
+        pauseEvent: function(e){
+          this.isPlaying = false;
         },
         handleResponse: function(data){
           this.trackList = data.detail.response;
           this.createPlaylist();
         },
+        handlePager: function(direction){
+          var newCurrent = (direction == 'next') ? this.currentTrack + 1 : this.currentTrack - 1;
+
+          if(this.currentTrack == 0 && direction == 'previous'){
+            newCurrent = (this.trackList.length - 1);
+          }
+
+          if(this.currentTrack == (this.trackList.length - 1) && direction == 'next'){
+            newCurrent = 0;
+          }
+
+          this.setTrack(newCurrent);
+        },
         createPlaylist: function(){
-          console.log(this.trackList)
+          var that = this,
+              tempElmnt;
+
+          this.trackList.map(function(track, index){
+            tempElmnt = doc.createElement('playlist-track-element');
+
+            tempElmnt.setAttribute('song', track.artist + ' - ' + track.title);
+            tempElmnt.setAttribute('index', index);
+
+            tempElmnt.addEventListener('track-event', function(event){
+              var trackIndex = event.detail.index;
+              that.setTrack(trackIndex);
+            });
+
+            that.$.tracklist.appendChild(tempElmnt);
+          });
+
+          this.setTrack(0);
+        },
+        updateProgress: function(e){
+          var current  = Math.round(this.$.player.currentTime),
+            duration = Math.round(this.$.player.duration),
+            percentage;
+
+          percentage = ((current / duration) * 100);
+          this.$.control.setAttribute('progress', percentage);
+        },
+        setTrack: function(index){
+          var track = this.trackList[index];
+
+          this.currentTrack = index;
+
+          this.$.pager.setAttribute('currentTrack', track.artist + ' - ' + track.title);
+
+          this.$.player.setAttribute('src', track.file);
+          this.$.player.load();
+          //this.$.player.play();
         }
       })
     })(window, document);

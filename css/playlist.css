@@ -1,4 +1,57 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-black.eot');
+  src: url('../fonts/lato/lato-black.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-black.woff') format('woff'), url('../fonts/lato/lato-black.ttf') format('truetype'), url('../fonts/lato/lato-black.svg#latoblack') format('svg');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-bold.eot');
+  src: url('../fonts/lato/lato-bold.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-bold.woff') format('woff'), url('../fonts/lato/lato-bold.ttf') format('truetype'), url('../fonts/lato/lato-bold.svg#latobold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-bolditalic.eot');
+  src: url('../fonts/lato/lato-bolditalic.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-bolditalic.woff') format('woff'), url('../fonts/lato/lato-bolditalic.ttf') format('truetype'), url('../fonts/lato/lato-bolditalic.svg#latobold-italic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-italic.eot');
+  src: url('../fonts/lato/lato-italic.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-italic.woff') format('woff'), url('../fonts/lato/lato-italic.ttf') format('truetype'), url('../fonts/lato/lato-italic.svg#latoitalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-light.eot');
+  src: url('../fonts/lato/lato-light.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-light.woff') format('woff'), url('../fonts/lato/lato-light.ttf') format('truetype'), url('../fonts/lato/lato-light.svg#latolight') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/lato-regular.eot');
+  src: url('../fonts/lato/lato-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/lato/lato-regular.woff') format('woff'), url('../fonts/lato/lato-regular.ttf') format('truetype'), url('../fonts/lato/lato-regular.svg#latoregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Flat-UI-Icons";
+  src: url('../fonts/flat-ui-icons-regular.eot');
+  src: url('../fonts/flat-ui-icons-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/flat-ui-icons-regular.woff') format('woff'), url('../fonts/flat-ui-icons-regular.ttf') format('truetype'), url('../fonts/flat-ui-icons-regular.svg#flat-ui-icons-regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
+	font-family: "Lato", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    line-height: 1.72222;
 	padding: 1em 5em;
 }
 
@@ -6,75 +59,26 @@ body {
 	padding: 3em 0;
 }
 
-.player-buttons .progress {
-	width: 500px;
-	display: inline-block;
-	margin: 0 1em;
+h1 {
+  font-size: 61px;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 30px;
+  margin-bottom: 15px;
 }
 
-.playlist-container .playing-label span {
-	width: 490px;
-	display: inline-block;
+h1 small {
+  font-size: 65%;
+  font-weight: normal;
+  line-height: 1;
+  color: #e7e9ec;
 }
 
-.playlist-container .playing-label strong {
-	color: #16A085;
+p {
+  font-size: 18px;
+  line-height: 1.72222;
+  margin: 0 0 15px;
 }
 
-.playlist-container .todo {
-	width: 584px;
-}
-
-.playlist-container .todo ul {
-	border-radius: 6px;
-}
-
-.playlist-container .todo li {
-	margin: 0;
-	border-top: 2px solid #FFF;
-}
-
-.playlist-container .todo li:first-child {
-	border-top: none;
-}
-
-.playlist-container .todo li,
-.playlist-container .todo .todo-done {
-	background: transparent;
-}
-
-.playlist-container .todo li,
-.playlist-container .todo li:last-child {
-	padding: 8px 42px 8px 25px;
-}
-
-.playlist-container .todo-icon {
-	display: inline-block;
-	font-family: 'Flat-UI-Icons';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	color: #FFF;
-	padding: 0 22px 0 0;
-}
-
-.playlist-container .todo-icon:before {
-	content: "\e03c";
-}
-
-.playlist-container .todo-done .todo-icon:before {
-	content: "\e000";
-}
-
-.playlist-container .todo-done .todo-icon {
-	color: #1ABC9C;
-}
-
-.todo li .todo-name {
-	line-height: 1.7;
-	margin: 0;
-}

@@ -3,19 +3,23 @@
   "version": "0.0.1",
   "description": "Basic web component that reads a JSON file and build a MP3 Playlist",
   "keywords": [
-    "test"
+    "mp3",
+    "playlist",
+    "web-components"
   ],
   "authors": [
-    "Diego Rocha"
+    { "name": "Diego Rocha", "email": "qix1986@gmail.com", "homepage": "http://github.com/qix1986" }
   ],
   "license": "MIT",
   "ignore": [
     "node_modules",
     "bower_components",
+    "media",
     "test",
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.4"
+    "polymer": "Polymer/polymer#~0.5.4",
+    "core-ajax": "Polymer/core-ajax#^0.5"
   }
 }
