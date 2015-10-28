@@ -7,8 +7,7 @@
         -webkit-transition: 0.25s;
         transition: 0.25s;
       }
-      a:hover,
-      a:focus {
+      a:hover {
         color: #1abc9c;
         text-decoration: none;
       }
@@ -24,9 +23,10 @@
 
       .fui-volume,
       .fui-pause,
-      .fui-play {
+      .fui-play,
+      .fui-mute {
         display: inline-block;
-        font-family: 'Flat-UI-Icons';
+        font-family: 'Flat-UI-Pro-Icons';
         speak: none;
         font-style: normal;
         font-weight: normal;
@@ -37,15 +37,19 @@
       }
 
       .fui-volume:before {
-        content: "\e010";
+        content: "\e617";
       }
 
       .fui-pause:before {
-        content: "\e03b";
+        content: "\e615";
       }
 
       .fui-play:before {
-        content: "\e03c";
+        content: "\e616";
+      }
+
+      .fui-mute:before {
+        content: "\e618";
       }
 
       .progress {

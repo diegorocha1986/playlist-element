@@ -50,10 +50,13 @@
         currentTrack: 0,
         trackList: [],
         isPlaying: false,
+        isMuted: false,
         ready: function() {
-          var that   = this,
-              pager  = this.$.pager,
-              player = this.$.player;
+          var that       = this,
+              pager      = this.$.pager,
+              player     = this.$.player,
+              playButton = this.$.control.shadowRoot.querySelector('.js-play-pause'),
+              muteButton = this.$.control.shadowRoot.querySelector('.js-mute');
 
           this.$.ajax.go();
           
@@ -65,12 +68,34 @@
           player.addEventListener('pause', this.pauseEvent.bind(this));
           player.addEventListener('ended', this.handlePager.bind(this, 'next'));
           player.addEventListener('timeupdate', this.updateProgress.bind(this));
+
+          playButton.addEventListener('click', this.togglePlay.bind(this));
+          muteButton.addEventListener('click', this.toggleMute.bind(this));
+        },
+        togglePlay: function(e){
+          (this.isPlaying) ? this.$.player.pause() : this.$.player.play();
+        },
+        toggleMute: function(e){
+          var muteButton  = this.$.control.shadowRoot.querySelector('.js-mute > span'),
+              volume      = (this.isMuted) ? 1.0 : 0.0,
+              buttonClass = (this.isMuted) ? 'fui-volume' : 'fui-mute';
+
+          this.isMuted = (this.isMuted) ? false : true;
+          this.$.player.volume = volume;
+          muteButton.className = buttonClass;
         },
         playEvent: function(e){
+          var playButton = this.$.control.shadowRoot.querySelector('.js-play-pause > span');
+
           this.isPlaying = true;
+
+          playButton.className = 'fui-pause';
         },
         pauseEvent: function(e){
+          var playButton = this.$.control.shadowRoot.querySelector('.js-play-pause > span');
+
           this.isPlaying = false;
+          playButton.className = 'fui-play';
         },
         handleResponse: function(data){
           this.trackList = data.detail.response;
@@ -118,15 +143,24 @@
           this.$.control.setAttribute('progress', percentage);
         },
         setTrack: function(index){
-          var track = this.trackList[index];
+          var track = this.trackList[index],
+              trackDom = this.$.tracklist,
+              trackElements = trackDom.querySelectorAll('playlist-track-element'),
+              trackLI = trackElements[index].shadowRoot.querySelector('li');
 
           this.currentTrack = index;
+
+          [].slice.call(trackElements).map(function(element){
+            element.shadowRoot.querySelector('li').classList.remove('todo-done');
+          });
+
+          trackLI.classList.add('todo-done');
 
           this.$.pager.setAttribute('currentTrack', track.artist + ' - ' + track.title);
 
           this.$.player.setAttribute('src', track.file);
           this.$.player.load();
-          //this.$.player.play();
+          this.$.player.play();
         }
       })
     })(window, document);
