@@ -1,4 +1,4 @@
-<polymer-element name="playlist-track-element" attributes="index, song">
+<dom-module is="playlist-track-element">
 	<template>
 		<style>
       li {
@@ -13,11 +13,6 @@
         transition: 0.25s;
         margin: 0;
         border-top: 2px solid #FFF;
-      }
-      li:first-child {
-        margin-top: 0;
-        border-top: none;
-        border-radius: 6px 6px 0 0;
       }
       li:last-child {
         border-radius: 0 0 6px 6px;
@@ -86,7 +81,7 @@
         }
       }
 		</style>
-		<li class="clearfix" on-click="{{triggerChange}}">
+		<li class="clearfix" on-click="triggerChange">
       <div class="todo-icon"></div>
       <div class="todo-content">
         <h4 class="todo-name">{{song}}</h4>
@@ -96,12 +91,21 @@
 	<script>
   (function(win, doc, undefined){
     Polymer({
-      song: '',
-      index: 0,
+      is: 'playlist-track-element',
+      properties: {
+        song: {
+          type: String,
+          value: ''
+        },
+        index: {
+          type: Number,
+          value: 0
+        }
+      },
       triggerChange: function(){
         this.fire('track-event', {index: this.index});
       }
     });
   })(window, document);
   </script>
-</polymer-element>
+</dom-module>

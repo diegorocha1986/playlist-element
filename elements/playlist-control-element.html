@@ -1,4 +1,4 @@
-<polymer-element name="playlist-control-element" attributes="progress">
+<dom-module id="playlist-control-element">
 	<template>
 		<style>
       a {
@@ -81,7 +81,7 @@
         <span class="fui-play"></span>
       </a>
       <div class="progress">
-        <div class="progress-bar js-progress-bar" style="width:{{progress}}%;"></div>
+        <div class="progress-bar js-progress-bar"></div>
       </div>
       <a href="javascript:;" class="js-mute">
         <span class="fui-volume"></span>
@@ -91,8 +91,18 @@
 	<script>
     (function(win, doc, undefined){
       Polymer({
-        progress: 0
+        is: 'playlist-control-element',
+        properties: {
+          progress: {
+            type: Number,
+            value: 0,
+            observer: '_changeProgress'
+          }
+        },
+        _changeProgress: function(newValue, oldValue) {
+          this.$$('.js-progress-bar').style.width = newValue + '%';
+        }
       });
     })(window, document);
   </script>
-</polymer-element>
+</dom-module>

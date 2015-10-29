@@ -1,4 +1,4 @@
-<polymer-element name="playlist-pager-element" attributes="currentTrack">
+<dom-module id="playlist-pager-element">
 	<template>
 		<style>
 			* {
@@ -139,15 +139,15 @@
 		</style>
 		<ul class="pager">
           <li class="previous js-prev">
-            <a href="javascript:;" on-click="{{triggerPrevious}}">
+            <a href="javascript:;" on-click="triggerPrevious">
               <span class="fui-arrow-left"></span>
             </a>
           </li>
           <li class="playing-label">
-            <span>Current Playing: <strong>{{currentTrack}}</strong></span>
+            <span>Current Playing: <strong></strong></span>
           </li>
           <li class="next js-next">
-            <a href="javascript:;" on-click="{{triggerNext}}">
+            <a href="javascript:;" on-click="triggerNext">
               <span class="fui-arrow-right"></span>
             </a>
           </li>
@@ -156,7 +156,17 @@
 	<script>
     (function(win, doc, undefined){
       Polymer({
-        currentTrack: null,
+      	is: 'playlist-pager-element',
+        properties: {
+        	currenttrack: {
+        		type: String,
+        		value: '',
+        		observer: '_changeCurrentTrack'
+        	}
+        },
+        _changeCurrentTrack: function(newValue, oldValue){
+        	this.$$('.playing-label strong').textContent = newValue;
+        },
         triggerNext: function(){
         	this.fire('pager-event', {type: 'next'});
         },
@@ -166,4 +176,4 @@
       });
     })(window, document);
   </script>
-</polymer-element>
+</dom-module>

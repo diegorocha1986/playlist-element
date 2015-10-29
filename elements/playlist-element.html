@@ -1,15 +1,15 @@
 <!-- Polymer Element -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<!-- Core AJAX -->
-<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
+<!-- MP3-Playlist Elements -->
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
 <!-- MP3-Playlist Elements -->
 <link rel="import" href="/elements/playlist-control-element.html">
 <link rel="import" href="/elements/playlist-pager-element.html">
 <link rel="import" href="/elements/playlist-track-element.html">
 
-<polymer-element name="playlist-element" attributes="src">
+<dom-module id="playlist-element">
   <template>
     <style>
       .wrapper-playlist {
@@ -18,18 +18,17 @@
       .todo {
         width: 584px;
         color: #798795;
-        margin-bottom: 20px;
-        border-radius: 6px;
+        border-radius: 8px;
+        overflow: hidden;
       }
       .todo ul {
         background-color: #2c3e50;
         margin: 0;
         padding: 0;
         list-style-type: none;
-        border-radius: 6px;
       }
     </style>
-    <core-ajax id="ajax" url="{{src}}" handleAs="json" on-core-response="{{handleResponse}}"></core-ajax>
+    <iron-ajax id="ajax" url="{{src}}" handleAs="json" on-response="handleResponse"></iron-ajax>
     <audio src="" id="player"></audio>
     <div class="wrapper-playlist">
       <playlist-control-element id="control"></playlist-control-element>
@@ -46,19 +45,26 @@
   <script>
     (function(win, doc, undefined){
       Polymer({
+        is: 'playlist-element',
         src: "default.json",
         currentTrack: 0,
         trackList: [],
         isPlaying: false,
         isMuted: false,
+        properties: {
+          src: {
+            type: String,
+            value: 'default.json'
+          }
+        },
         ready: function() {
           var that       = this,
               pager      = this.$.pager,
               player     = this.$.player,
-              playButton = this.$.control.shadowRoot.querySelector('.js-play-pause'),
-              muteButton = this.$.control.shadowRoot.querySelector('.js-mute');
+              playButton = this.$.control.$$('.js-play-pause'),
+              muteButton = this.$.control.$$('.js-mute');
 
-          this.$.ajax.go();
+          this.$.ajax.generateRequest();
           
           pager.addEventListener('pager-event', function(event){
             that.handlePager(event.detail.type);
@@ -76,29 +82,31 @@
           (this.isPlaying) ? this.$.player.pause() : this.$.player.play();
         },
         toggleMute: function(e){
-          var muteButton  = this.$.control.shadowRoot.querySelector('.js-mute > span'),
+          var muteButton  = this.$.control.$$('.js-mute > span'),
               volume      = (this.isMuted) ? 1.0 : 0.0,
               buttonClass = (this.isMuted) ? 'fui-volume' : 'fui-mute';
 
           this.isMuted = (this.isMuted) ? false : true;
           this.$.player.volume = volume;
-          muteButton.className = buttonClass;
+          this.toggleClass('fui-mute', this.isMuted, muteButton);
+          this.toggleClass('fui-volume', (!this.isMuted), muteButton);
         },
         playEvent: function(e){
-          var playButton = this.$.control.shadowRoot.querySelector('.js-play-pause > span');
+          var playButton = this.$.control.$$('.js-play-pause span');
 
           this.isPlaying = true;
-
-          playButton.className = 'fui-pause';
+          this.toggleClass('fui-pause', this.isPlaying, playButton);
+          this.toggleClass('fui-play', (!this.isPlaying), playButton);
         },
         pauseEvent: function(e){
-          var playButton = this.$.control.shadowRoot.querySelector('.js-play-pause > span');
+          var playButton = this.$.control.$$('.js-play-pause span');
 
           this.isPlaying = false;
-          playButton.className = 'fui-play';
+          this.toggleClass('fui-pause', this.isPlaying, playButton);
+          this.toggleClass('fui-play', (!this.isPlaying), playButton);
         },
-        handleResponse: function(data){
-          this.trackList = data.detail.response;
+        handleResponse: function(e, data){
+          this.trackList = data.response;
           this.createPlaylist();
         },
         handlePager: function(direction){
@@ -144,17 +152,13 @@
         },
         setTrack: function(index){
           var track = this.trackList[index],
-              trackDom = this.$.tracklist,
-              trackElements = trackDom.querySelectorAll('playlist-track-element'),
-              trackLI = trackElements[index].shadowRoot.querySelector('li');
+              trackElements = this.$.tracklist.querySelectorAll('li'),
+              trackLI = trackElements[index],
+              oldTrackLI = (this.currentTrack == index) ? trackElements[index] : this.$.tracklist.querySelector('.todo-done');
 
           this.currentTrack = index;
 
-          [].slice.call(trackElements).map(function(element){
-            element.shadowRoot.querySelector('li').classList.remove('todo-done');
-          });
-
-          trackLI.classList.add('todo-done');
+          this.classFollows('todo-done', trackLI, oldTrackLI);
 
           this.$.pager.setAttribute('currentTrack', track.artist + ' - ' + track.title);
 
@@ -165,4 +169,4 @@
       })
     })(window, document);
   </script>
-</polymer-element>
+</dom-module>

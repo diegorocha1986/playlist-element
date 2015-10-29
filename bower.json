@@ -8,7 +8,11 @@
     "web-components"
   ],
   "authors": [
-    { "name": "Diego Rocha", "email": "qix1986@gmail.com", "homepage": "http://github.com/qix1986" }
+    {
+      "name": "Diego Rocha",
+      "email": "qix1986@gmail.com",
+      "homepage": "http://github.com/qix1986"
+    }
   ],
   "license": "MIT",
   "ignore": [
@@ -19,7 +23,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.4",
-    "core-ajax": "Polymer/core-ajax#^0.5"
+    "polymer": "Polymer/polymer#^1.1.0",
+    "iron-ajax": "PolymerElements/iron-ajax#~1.0.8"
   }
 }
