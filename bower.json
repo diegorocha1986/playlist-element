@@ -1,9 +1,13 @@
 {
-  "name": "mp3-playlist",
-  "version": "0.0.1",
+  "name": "playlist-element",
+  "version": "0.1.0",
   "description": "Basic web component that reads a JSON file and build a MP3 Playlist",
+  "main": [
+    "elements/playlist-element.html"
+  ],
   "keywords": [
     "mp3",
+    "polymer",
     "playlist",
     "web-components"
   ],
@@ -11,7 +15,7 @@
     {
       "name": "Diego Rocha",
       "email": "qix1986@gmail.com",
-      "homepage": "http://github.com/qix1986"
+      "homepage": "http://diegorocha.me/"
     }
   ],
   "license": "MIT",
