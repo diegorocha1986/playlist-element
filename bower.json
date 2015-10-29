@@ -5,6 +5,10 @@
   "main": [
     "elements/playlist-element.html"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qix1986/playlist-element.git"
+  },
   "keywords": [
     "mp3",
     "polymer",
@@ -23,7 +27,8 @@
     "node_modules",
     "bower_components",
     "media",
-    "css"
+    "css",
+    "js",
     "test",
     "tests"
   ],
