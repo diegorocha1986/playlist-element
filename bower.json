@@ -1,6 +1,6 @@
 {
   "name": "playlist-element",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Basic web component that reads a JSON file and build a MP3 Playlist",
   "main": [
     "elements/playlist-element.html"
